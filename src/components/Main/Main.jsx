@@ -5,13 +5,17 @@ import pokemon from "../../assets/ninetales.png";
 
 function Main() {
   return (
-    <div>
+    <div className="home">
       <NavBar />
-      <div className="homepage">
-        <h1>Welcome to the ContestDex!</h1>
-        <h2>The Pokemon of the day is...</h2>
-        <img src={pokemon}></img>
-        <h2>Ninetales!</h2>
+      <div className="home__landing">
+        <h1 className="home__welcome">Welcome to the ContestDex!</h1>
+        <h2 className="home__poke">The Pokemon of the day is...</h2>
+        <img
+          src={pokemon}
+          alt="the pokemon of the day"
+          className="home__poke-img"
+        ></img>
+        <h2 className="home__poke home__poke-btm">Ninetales!</h2>
       </div>
     </div>
   );

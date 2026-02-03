@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  height: 440px;
+  max-width: 201px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  margin: 14px;
+  margin-right: 16px;
+  margin-top: 0;
+}
+
+.nav__btn-bar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__btn {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 24px;
+  background-color: rgba(0, 0, 0, 0);
+  color: #496849;
+  border: none;
+  cursor: pointer;
+  width: 150px;
+  margin-top: 18px;
+}

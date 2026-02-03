@@ -163,11 +163,11 @@ function App() {
         </Routes>
         <Footer />
       </div>
-      <RegisterModal />
+      {/* <RegisterModal />
       <LoginModal />
       <PokeModal />
       <MoveModal />
-      <BerryModal />
+      <BerryModal /> */}
     </div>
   );
 }

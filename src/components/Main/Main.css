@@ -1,0 +1,44 @@
+/* these really should probably be main and not home */
+.home {
+  display: flex;
+  align-items: center;
+  max-width: 1440px;
+  max-height: 550px;
+}
+
+.home__landing {
+  z-index: 0;
+  width: 1195px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 14px;
+  margin-bottom: 14px;
+}
+
+.home__welcome {
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 30px;
+  color: #496849;
+  margin-top: 24px;
+}
+
+.home__poke {
+  color: #496849;
+  font-family: "Poppins";
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.home__poke-btm {
+  margin-bottom: 30px;
+}
+
+.home__poke-img {
+  width: 236px;
+}

@@ -1,8 +1,11 @@
-// the component that renders the footer of the page
+import "./Footer.css";
+
 function Footer() {
   return (
-    <div>
-      <p>This will be the footer someday</p>
+    <div className="footer">
+      <p className="footer__text">
+        Crafted with Love by Karilyn Bremiller 2026
+      </p>
     </div>
   );
 }

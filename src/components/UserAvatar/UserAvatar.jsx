@@ -1,15 +1,12 @@
 import { NavLink } from "react-router-dom";
+import pokemon from "../../assets/ninetales.png";
 
 function UserAvatar() {
   return (
     <div className="header__user-container">
       <NavLink className="header__nav-link" to="/profile">
         <p className="header__username">Placeholder Name</p>
-        {/* {currentUser.avatar ? (
-          <img className="header__avatar" />
-        ) : (
-          <div className="header__avatar-placeholder">P</div>
-        )} */}
+        <img src={pokemon} className="header__avatar" />
       </NavLink>
     </div>
   );

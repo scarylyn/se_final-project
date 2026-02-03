@@ -4,10 +4,12 @@ import "./NavBar.css";
 function NavBar() {
   return (
     <div className="navbar">
-      <button>Pokemon</button>
-      <button>Moves</button>
-      <button>Berries</button>
-      <button>Go to Homepage</button>
+      <div className="nav__btn-bar">
+        <button className="nav__btn">Pokemon</button>
+        <button className="nav__btn">Moves</button>
+        <button className="nav__btn">Berries</button>
+        {/* <button className="nav__btn">Go to Homepage</button> */}
+      </div>
     </div>
   );
 }

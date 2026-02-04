@@ -2,7 +2,7 @@
 // all moves they can learn and what contest type that move is
 function PokeModal() {
   return (
-    <div>
+    <div className="pokemodal">
       <p> This is the PokeModal starter</p>
     </div>
   );

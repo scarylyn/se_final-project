@@ -5,12 +5,13 @@ import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 // Components
 import "./App.css";
 import Header from "../Header/Header";
-import Main from "../Main/Main";
+import Main from "../Main/Main.jsx";
 import Profile from "../Profile/Profile";
 import PokePage from "../PokePage/PokePage.jsx";
 import MovePage from "../MovePage/MovePage.jsx";
 import BerryPage from "../BerryPage/BerryPage.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import LoginModal from "../LoginModal/LoginModal";
 import PokeModal from "../PokeModal/PokeModal";
 import MoveModal from "../MoveModal/MoveModal";
@@ -18,6 +19,7 @@ import BerryModal from "../BerryModal/BerryModal";
 import Footer from "../Footer/Footer";
 
 // Utils, Constants, etc.
+import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import * as auth from "../../utils/auth.js";
 import * as api from "../../utils/api.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
@@ -63,24 +65,13 @@ function App() {
   };
 
   const handleCardLike = ({ itemId, isLiked }) => {
-    const token = localStorage.getItem("jwt");
+    let likedPokemon = JSON.parse(localStorage.getItem("likedPokemon") || "[]");
     !isLiked
-      ? api
-          .addCardLike({ itemId, isLiked, token })
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === itemId ? updatedCard : item)),
-            );
-          })
-          .catch((err) => console.log(err))
-      : api
-          .removeCardLike({ itemId, isLiked, token })
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === itemId ? updatedCard : item)),
-            );
-          })
-          .catch((err) => console.log(err));
+      ? likedPokemon.push(itemId)
+      : (likedPokemon = likedPokemon.filter((item) => item !== itemId));
+    const pokeString = JSON.stringify(likedPokemon);
+    localStorage.setItem("likedPokemon", pokeString);
+    return likedPokemon;
   };
 
   const openRegistrationModal = () => {
@@ -133,42 +124,137 @@ function App() {
     setUserData("");
   };
 
+  const openEditProfileModal = () => {
+    setActiveModal("edit-profile");
+  };
+
+  const handleEditProfile = ({ name, avatar, token }) => {
+    console.log("editing profile imminent");
+    auth
+      .updateUserProfile(userData._id, userData.email, name, avatar, token)
+      .then((res) => {
+        console.log(res);
+        setUserData({ ...userData, name, avatar, token });
+        closeActiveModal();
+      })
+      .catch(() => {
+        console.error();
+      });
+  };
+
+  useEffect(() => {
+    if (activeModal) {
+      document.addEventListener("keydown", handleEscape);
+    } else {
+      document.removeEventListener("keydown", handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [activeModal]);
+
   return (
-    <div className="page">
-      <div className="page-content">
-        <Header />
-        <Routes>
-          <Route
-            path="*"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/profile" replace />
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
+    <CurrentUserContext.Provider value={userData}>
+      <div className="page">
+        <div className="page__content">
+          <Header
+            isLoggedIn={isLoggedIn}
+            openRegistrationModal={openRegistrationModal}
+            openSignInModal={openSignInModal}
           />
-          <Route path="/" element={<Main />} />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute isLoggedIn={isLoggedIn}>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/pokemon" element={<PokePage />} />
-          <Route path="/moves" element={<MovePage />} />
-          <Route path="/berries" element={<BerryPage />} />
-        </Routes>
-        <Footer />
+          <Routes>
+            <Route
+              path="*"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/profile" replace />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <Main
+                  handleCardClick={handleCardClick}
+                  handleCardLike={handleCardLike}
+                  isLoggedIn={isLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    userData={userData}
+                    onCardClick={handleCardClick}
+                    handleCardLike={handleCardLike}
+                    handleEditProfile={handleEditProfile}
+                    openEditProfileModal={openEditProfileModal}
+                    signOut={signOut}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pokemon"
+              element={
+                <PokePage
+                  userData={userData}
+                  onCardClick={handleCardClick}
+                  handleCardLike={handleCardLike}
+                />
+              }
+            />
+            <Route
+              path="/moves"
+              element={
+                <MovePage
+                  userData={userData}
+                  onCardClick={handleCardClick}
+                  handleCardLike={handleCardLike}
+                />
+              }
+            />
+            <Route
+              path="/berries"
+              element={
+                <BerryPage
+                  userData={userData}
+                  onCardClick={handleCardClick}
+                  handleCardLike={handleCardLike}
+                />
+              }
+            />
+          </Routes>
+          <Footer />
+        </div>
+        <RegisterModal
+          activeModal={activeModal}
+          handleRegistration={handleRegistration}
+          onClose={closeActiveModal}
+          isOpen={activeModal === "register"}
+        />
+        <LoginModal
+          activeModal={activeModal}
+          handleSignIn={handleSignIn}
+          onClose={closeActiveModal}
+          isOpen={activeModal === "signin"}
+        />
+        <EditProfileModal
+          activeModal={activeModal}
+          onClose={closeActiveModal}
+          isOpen={activeModal === "edit-profile"}
+          handleEditProfile={handleEditProfile}
+        />
+        {/* <PokeModal />
+        <MoveModal />
+        <BerryModal /> */}
       </div>
-      {/* <RegisterModal />
-      <LoginModal />
-      <PokeModal />
-      <MoveModal />
-      <BerryModal /> */}
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 

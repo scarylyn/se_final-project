@@ -3,7 +3,7 @@
 // and what specifically the move does in the context of contests
 function MoveModal() {
   return (
-    <div>
+    <div className="movemodal">
       <p> This is the MoveModal starter</p>
     </div>
   );

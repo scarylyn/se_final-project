@@ -1,4 +1,5 @@
 .header {
+  position: relative;
   max-width: 1440px;
   font-family: "Poppins";
   font-weight: 700;
@@ -40,7 +41,10 @@
 }
 
 .header__user-container {
+  display: flex;
+  align-items: center;
   z-index: 0;
+  gap: 10px;
 }
 
 .header__username {
@@ -61,4 +65,17 @@
   align-items: center;
   text-decoration: none;
   color: rgb(255, 255, 255);
+}
+
+.header__login {
+  font-family: "Poppins";
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 12px 0 0;
+  padding: 0;
+  white-space: nowrap;
 }

@@ -1,7 +1,16 @@
-const baseUrl = "http://localhost:3001";
+import { baseUrl, pokeApi } from "./constants";
 
-export const getItems = () => {
-  return fetch(`${baseUrl}/items`, {
+export const getPokemon = () => {
+  return fetch(`${pokeApi}/pokemon?offset=28&limit=28`, {
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then(handleServerResponse);
+};
+
+export const pokeOfTheDay = () => {
+  const randomPoke = Math.floor(Math.random() * 386);
+  return fetch(`${pokeApi}/pokemon/${randomPoke}`, {
     headers: {
       "Content-type": "application/json",
     },
@@ -10,24 +19,4 @@ export const getItems = () => {
 
 export const handleServerResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-};
-
-export const addCardLike = ({ itemId, token, isLiked }) => {
-  return fetch(`${baseUrl}/items/${itemId}/likes`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then(handleServerResponse);
-};
-
-export const removeCardLike = ({ itemId, token, isLiked }) => {
-  return fetch(`${baseUrl}/items/${itemId}/likes`, {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then(handleServerResponse);
 };

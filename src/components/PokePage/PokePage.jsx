@@ -5,10 +5,10 @@ import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
 import PokeModal from "../PokeModal/PokeModal";
+import { filterColors } from "../../utils/constants";
 
 function PokePage({
   onCardClick,
-  handleCardLike,
   activeModal,
   card,
   onClose,
@@ -18,26 +18,6 @@ function PokePage({
   const [pokeCards, setPokeCards] = useState([]);
   const [displayCount, setDisplayCount] = useState(28);
   const [filterActive, setFilterActive] = useState(false);
-
-  const filterColors = {
-    Bug: "#A7B723",
-    Normal: "#AAA67F",
-    Ground: "#DEC16B",
-    Fighting: "#C12239",
-    Flying: "#A891EC",
-    Poison: "#A43E9E",
-    Rock: "#B69E31",
-    Ghost: "#70559B",
-    Steel: "#B7B9D0",
-    Fire: "#F57D31",
-    Water: "#6493EB",
-    Grass: "#74CB48",
-    Electric: "#F9CF30",
-    Psychic: "#FB5584",
-    Dragon: "#7037FF",
-    Dark: "#75574C",
-    Ice: "#9AD6DF",
-  };
 
   const handleFilterClick = (filterType) => {
     setFilterActive(true);

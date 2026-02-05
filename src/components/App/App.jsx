@@ -32,8 +32,6 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
 
-  // move handleLikeCard from itemcard to here to make it universal
-
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (!token) {
@@ -77,17 +75,6 @@ function App() {
   const openPokeModal = (card) => {
     setActiveModal("pokemodal");
     setSelectedCard(card);
-  };
-
-  const handleCardLike = ({ itemId, isLiked }) => {
-    let likedPokemon = JSON.parse(localStorage.getItem("likedPokemon") || "[]");
-    !isLiked
-      ? likedPokemon.push(itemId)
-      : (likedPokemon = likedPokemon.filter((item) => item !== itemId));
-    const pokeString = JSON.stringify(likedPokemon);
-    localStorage.setItem("likedPokemon", pokeString);
-    console.log("liked~");
-    return likedPokemon;
   };
 
   const openRegistrationModal = () => {
@@ -224,7 +211,15 @@ function App() {
               <Route
                 path="/moves"
                 element={
-                  <MovePage userData={userData} onCardClick={handleCardClick} />
+                  <MovePage
+                    firstLetterCapital={firstLetterCapital}
+                    userData={userData}
+                    onCardClick={openPokeModal}
+                    activeModal={activeModal}
+                    card={selectedCard}
+                    onClose={closeActiveModal}
+                    isOpen={activeModal === "movemodal"}
+                  />
                 }
               />
               <Route

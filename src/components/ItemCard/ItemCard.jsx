@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useLikes } from "../../contexts/LikeContext";
 import "./ItemCard.css";
+import moveImg from "../../assets/TM-disc.png";
 
 function ItemCard({ item, onCardClick, firstLetterCapital }) {
   const { likes, toggleLike } = useLikes();
@@ -27,7 +27,7 @@ function ItemCard({ item, onCardClick, firstLetterCapital }) {
       <img
         onClick={handleCardClick}
         className="card__image"
-        src={item.sprites.front_default}
+        src={!item.sprites ? moveImg : item.sprites.front_default}
         alt={item.name}
       />
     </li>

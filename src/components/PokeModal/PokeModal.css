@@ -1,17 +1,33 @@
-.card__like-button {
+.modal__content.pokemodal__content {
+  padding: 10px;
+}
+
+.pokemodal__content {
   display: flex;
-  height: 24px;
-  width: 20px;
-  background-image: url("/pokeball-open.png");
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  cursor: pointer;
+  flex-direction: column;
+  height: 610px;
+}
+
+.pokemodal__moves {
+  padding: 0;
+  margin: 0;
+}
+
+.pokemodal__move-item {
+  gap: 0;
   margin: 0;
   padding: 0;
 }
 
-.card__like-button_active {
-  background-image: url("/pokeball-closed.png");
+.modal__footer.pokemodal__footer {
+  background-color: rgba(110, 156, 109, 0.5);
+}
+
+.pokemodal__footer {
+  overflow: scroll;
+  position: relative;
+  flex-grow: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(110, 156, 109, 0.5);
 }

@@ -19,6 +19,7 @@ import BerryModal from "../BerryModal/BerryModal";
 import Footer from "../Footer/Footer";
 
 // Utils, Constants, etc.
+import { LikesProvider } from "../../contexts/LikeContext.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import * as auth from "../../utils/auth.js";
 import * as api from "../../utils/api.js";
@@ -30,6 +31,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+
+  // move handleLikeCard from itemcard to here to make it universal
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -49,6 +52,13 @@ function App() {
       });
   }, []);
 
+  const firstLetterCapital = (string) => {
+    if (typeof string !== "string" || string.length === 0) {
+      return "";
+    }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   const handleCardClick = (card) => {
     setActiveModal("preview");
     setSelectedCard(card);
@@ -64,6 +74,11 @@ function App() {
     }
   };
 
+  const openPokeModal = (card) => {
+    setActiveModal("pokemodal");
+    setSelectedCard(card);
+  };
+
   const handleCardLike = ({ itemId, isLiked }) => {
     let likedPokemon = JSON.parse(localStorage.getItem("likedPokemon") || "[]");
     !isLiked
@@ -71,6 +86,7 @@ function App() {
       : (likedPokemon = likedPokemon.filter((item) => item !== itemId));
     const pokeString = JSON.stringify(likedPokemon);
     localStorage.setItem("likedPokemon", pokeString);
+    console.log("liked~");
     return likedPokemon;
   };
 
@@ -129,11 +145,9 @@ function App() {
   };
 
   const handleEditProfile = ({ name, avatar, token }) => {
-    console.log("editing profile imminent");
     auth
       .updateUserProfile(userData._id, userData.email, name, avatar, token)
       .then((res) => {
-        console.log(res);
         setUserData({ ...userData, name, avatar, token });
         closeActiveModal();
       })
@@ -155,106 +169,100 @@ function App() {
   }, [activeModal]);
 
   return (
-    <CurrentUserContext.Provider value={userData}>
-      <div className="page">
-        <div className="page__content">
-          <Header
-            isLoggedIn={isLoggedIn}
-            openRegistrationModal={openRegistrationModal}
-            openSignInModal={openSignInModal}
-          />
-          <Routes>
-            <Route
-              path="*"
-              element={
-                isLoggedIn ? (
-                  <Navigate to="/profile" replace />
-                ) : (
-                  <Navigate to="/" replace />
-                )
-              }
+    <LikesProvider>
+      <CurrentUserContext.Provider value={userData}>
+        <div className="page">
+          <div className="page__content">
+            <Header
+              isLoggedIn={isLoggedIn}
+              openRegistrationModal={openRegistrationModal}
+              openSignInModal={openSignInModal}
             />
-            <Route
-              path="/"
-              element={
-                <Main
-                  handleCardClick={handleCardClick}
-                  handleCardLike={handleCardLike}
-                  isLoggedIn={isLoggedIn}
-                />
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute isLoggedIn={isLoggedIn}>
-                  <Profile
+            <Routes>
+              <Route
+                path="*"
+                element={
+                  isLoggedIn ? (
+                    <Navigate to="/profile" replace />
+                  ) : (
+                    <Navigate to="/" replace />
+                  )
+                }
+              />
+              <Route
+                path="/"
+                element={<Main firstLetterCapital={firstLetterCapital} />}
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <Profile
+                      userData={userData}
+                      onCardClick={handleCardClick}
+                      handleEditProfile={handleEditProfile}
+                      openEditProfileModal={openEditProfileModal}
+                      signOut={signOut}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/pokemon"
+                element={
+                  <PokePage
+                    firstLetterCapital={firstLetterCapital}
+                    userData={userData}
+                    onCardClick={openPokeModal}
+                    activeModal={activeModal}
+                    card={selectedCard}
+                    onClose={closeActiveModal}
+                    isOpen={activeModal === "pokemodal"}
+                  />
+                }
+              />
+              <Route
+                path="/moves"
+                element={
+                  <MovePage userData={userData} onCardClick={handleCardClick} />
+                }
+              />
+              <Route
+                path="/berries"
+                element={
+                  <BerryPage
                     userData={userData}
                     onCardClick={handleCardClick}
-                    handleCardLike={handleCardLike}
-                    handleEditProfile={handleEditProfile}
-                    openEditProfileModal={openEditProfileModal}
-                    signOut={signOut}
                   />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/pokemon"
-              element={
-                <PokePage
-                  userData={userData}
-                  onCardClick={handleCardClick}
-                  handleCardLike={handleCardLike}
-                />
-              }
-            />
-            <Route
-              path="/moves"
-              element={
-                <MovePage
-                  userData={userData}
-                  onCardClick={handleCardClick}
-                  handleCardLike={handleCardLike}
-                />
-              }
-            />
-            <Route
-              path="/berries"
-              element={
-                <BerryPage
-                  userData={userData}
-                  onCardClick={handleCardClick}
-                  handleCardLike={handleCardLike}
-                />
-              }
-            />
-          </Routes>
-          <Footer />
-        </div>
-        <RegisterModal
-          activeModal={activeModal}
-          handleRegistration={handleRegistration}
-          onClose={closeActiveModal}
-          isOpen={activeModal === "register"}
-        />
-        <LoginModal
-          activeModal={activeModal}
-          handleSignIn={handleSignIn}
-          onClose={closeActiveModal}
-          isOpen={activeModal === "signin"}
-        />
-        <EditProfileModal
-          activeModal={activeModal}
-          onClose={closeActiveModal}
-          isOpen={activeModal === "edit-profile"}
-          handleEditProfile={handleEditProfile}
-        />
-        {/* <PokeModal />
-        <MoveModal />
+                }
+              />
+            </Routes>
+            <Footer />
+          </div>
+          <RegisterModal
+            activeModal={activeModal}
+            handleRegistration={handleRegistration}
+            onClose={closeActiveModal}
+            isOpen={activeModal === "register"}
+          />
+          <LoginModal
+            activeModal={activeModal}
+            handleSignIn={handleSignIn}
+            onClose={closeActiveModal}
+            isOpen={activeModal === "signin"}
+          />
+          <EditProfileModal
+            activeModal={activeModal}
+            onClose={closeActiveModal}
+            isOpen={activeModal === "edit-profile"}
+            handleEditProfile={handleEditProfile}
+          />
+
+          {/* <MoveModal />
         <BerryModal /> */}
-      </div>
-    </CurrentUserContext.Provider>
+        </div>
+      </CurrentUserContext.Provider>
+    </LikesProvider>
   );
 }
 

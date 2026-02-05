@@ -1,32 +1,28 @@
 import { useState } from "react";
+import { useLikes } from "../../contexts/LikeContext";
 import "./ItemCard.css";
 
-function ItemCard({ item, onCardClick, handleCardLike }) {
-  const [isLiked, setIsLiked] = useState(() => {
-    const likedPokemon = JSON.parse(
-      localStorage.getItem("likedPokemon") || "[]",
-    );
-    return Array.isArray(likedPokemon) ? likedPokemon.includes(item.id) : false;
-  });
-
-  const itemLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_active" : ""
-  }`;
+function ItemCard({ item, onCardClick, firstLetterCapital }) {
+  const { likes, toggleLike } = useLikes();
+  const isLiked = !!likes[item.id];
 
   const handleCardClick = () => {
     onCardClick(item);
   };
 
-  const onCardLike = () => {
-    setIsLiked(!isLiked);
-    handleCardLike({ itemId: item.id, isLiked });
-  };
-
   return (
     <li className="card">
       <div className="card__title">
-        <h2 className="card__name">{item.name}</h2>
-        <button className={itemLikeButtonClassName} onClick={onCardLike} />
+        <h2 className="card__name">{firstLetterCapital(item.name)}</h2>
+        <button
+          className={`card__like-button ${
+            isLiked ? "card__like-button_active" : ""
+          }`}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleLike(item.id, item);
+          }}
+        />
       </div>
       <img
         onClick={handleCardClick}

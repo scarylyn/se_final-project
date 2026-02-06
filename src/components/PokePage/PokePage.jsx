@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getPokemon, filteredByType } from "../../utils/api";
+import { getPokemon, filteredByType } from "../../utils/PokeApi";
 import "./PokePage.css";
 import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";

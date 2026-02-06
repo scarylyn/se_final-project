@@ -2,7 +2,7 @@ import "./MovePage.css";
 import "../Main/Main.css";
 import "../PokePage/PokePage.css";
 import { useState, useEffect } from "react";
-import { getMoves } from "../../utils/api";
+import { getMoves } from "../../utils/PokeApi";
 import { filterColors } from "../../utils/constants";
 import NavBar from "../NavBar/NavBar";
 import MoveModal from "../MoveModal/MoveModal";
@@ -31,8 +31,6 @@ function MovePage({
       })
       .then((promises) => Promise.all(promises))
       .then((detailedItems) => {
-        console.log("further down the filter chain");
-        console.log(detailedItems);
         const filteredItems = detailedItems.filter(
           (object) =>
             firstLetterCapital(object.contest_type.name) === filterType,

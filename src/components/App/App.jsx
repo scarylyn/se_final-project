@@ -19,7 +19,7 @@ import Footer from "../Footer/Footer";
 import { LikesProvider } from "../../contexts/LikeContext.jsx";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import * as auth from "../../utils/auth.js";
-import * as api from "../../utils/api.js";
+import * as api from "../../utils/PokeApi.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
 function App() {
@@ -233,8 +233,13 @@ function App() {
                 path="/berries"
                 element={
                   <BerryPage
+                    firstLetterCapital={firstLetterCapital}
                     userData={userData}
-                    onCardClick={handleCardClick}
+                    onCardClick={openMoveModal}
+                    activeModal={activeModal}
+                    card={selectedCard}
+                    onClose={closeActiveModal}
+                    isOpen={activeModal === "berrymodal"}
                   />
                 }
               />

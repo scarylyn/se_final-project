@@ -44,7 +44,7 @@ function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
         <NavLink to="/berries">
           <button className="nav__btn">Berries</button>
         </NavLink>
-        {/* {showFilters && location.pathname === "/berries" && (
+        {showFilters && location.pathname === "/berries" && (
           <div className="nav__filter-buttons">
             {filterOptions.map((filter) => (
               <button
@@ -57,7 +57,7 @@ function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
               </button>
             ))}
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

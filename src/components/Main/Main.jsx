@@ -1,6 +1,6 @@
 import "./Main.css";
 import NavBar from "../NavBar/NavBar";
-import { pokeOfTheDay } from "../../utils/api";
+import { pokeOfTheDay } from "../../utils/PokeApi";
 import { useEffect, useState } from "react";
 
 function Main({ firstLetterCapital }) {

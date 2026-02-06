@@ -25,4 +25,9 @@ export const filterColors = {
   Smart: "#74CB48",
   Beauty: "#6493EB",
   Cool: "#C12239",
+  Sweet: "#FB5584",
+  Sour: "#F9CF30",
+  Bitter: "#74CB48",
+  Dry: "#6493EB",
+  Spicy: "#C12239",
 };

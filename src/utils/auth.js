@@ -1,4 +1,4 @@
-import { handleServerResponse } from "./api";
+import { handleServerResponse } from "./PokeApi";
 import { baseUrl } from "./constants";
 
 export const register = (email, password, name, avatar) => {

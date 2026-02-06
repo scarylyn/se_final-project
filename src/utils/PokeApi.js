@@ -1,4 +1,4 @@
-import { baseUrl, pokeApi } from "./constants";
+import { pokeApi } from "./constants";
 
 export const pokeOfTheDay = () => {
   const randomPoke = Math.floor(Math.random() * 386);
@@ -27,6 +27,14 @@ export const filteredByType = (filterType) => {
 
 export const getMoves = () => {
   return fetch(`${pokeApi}/move?limit=400`, {
+    headers: {
+      "Content-type": "application/json",
+    },
+  }).then(handleServerResponse);
+};
+
+export const getBerries = () => {
+  return fetch(`${pokeApi}/berry?limit=64`, {
     headers: {
       "Content-type": "application/json",
     },

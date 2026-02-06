@@ -4,7 +4,7 @@ import moveImg from "../../assets/TM-disc.png";
 
 function ItemCard({ item, onCardClick, firstLetterCapital }) {
   const { likes, toggleLike } = useLikes();
-  const isLiked = !!likes[item.id];
+  const isLiked = !!likes[item.name];
 
   const handleCardClick = () => {
     onCardClick(item);
@@ -20,7 +20,7 @@ function ItemCard({ item, onCardClick, firstLetterCapital }) {
           }`}
           onClick={(e) => {
             e.stopPropagation();
-            toggleLike(item.id, item);
+            toggleLike(item.name, item);
           }}
         />
       </div>

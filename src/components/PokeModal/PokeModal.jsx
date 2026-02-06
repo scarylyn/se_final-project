@@ -6,7 +6,7 @@ import { useLikes } from "../../contexts/LikeContext";
 function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
   const [moveDetails, setMoveDetails] = useState([]);
   const { likes, toggleLike } = useLikes();
-  const isLiked = !!likes[card.id];
+  const isLiked = !!likes[card.name];
 
   useEffect(() => {
     if (card?.moves) {
@@ -39,7 +39,7 @@ function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
         className="pokemodal__content modal__content"
       >
         <button
-          onClick={() => toggleLike(card.id, card)}
+          onClick={() => toggleLike(card.name, card)}
           type="button"
           className={`modal__like-button ${
             isLiked ? "modal__like-button_active" : ""
@@ -50,7 +50,11 @@ function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
           type="button"
           className="modal__close modal__close_preview"
         />
-        <img className="modal__image" src={card.sprites.front_default} />
+        <img
+          className="modal__image"
+          src={card.sprites?.front_default}
+          alt={card.name}
+        />
         <div className="pokemodal__footer">
           <h2 className="modal__caption">{firstLetterCapital(card.name)}</h2>
           <div className="pokemodal__moves">

@@ -15,12 +15,12 @@ export function LikesProvider({ children }) {
     localStorage.setItem("likes", JSON.stringify(likes));
   }, [likes]);
 
-  const toggleLike = async (id, itemData) => {
+  const toggleLike = async (name, itemData) => {
     // optimistic update
     setLikes((prev) => {
       const next = { ...prev };
-      if (next[id]) delete next[id];
-      else next[id] = true;
+      if (next[name]) delete next[name];
+      else next[name] = true;
       return next;
     });
 
@@ -32,8 +32,8 @@ export function LikesProvider({ children }) {
       setLikes((prev) => {
         const next = { ...prev };
         // naive revert: flip
-        if (next[id]) delete next[id];
-        else next[id] = true;
+        if (next[name]) delete next[name];
+        else next[name] = true;
         return next;
       });
     }

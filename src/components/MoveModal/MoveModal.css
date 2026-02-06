@@ -1,0 +1,46 @@
+.movemodal__content.modal__content {
+  padding: 10px;
+  max-height: 510px;
+  width: 350px;
+}
+
+.movemodal__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.movemodal__footer {
+  overflow: scroll;
+  position: relative;
+  flex-grow: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgba(110, 156, 109, 0.5);
+}
+
+.movemodal__title {
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.movemodal__caption {
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.movemodal__list {
+  margin-top: 10px;
+  padding: 0;
+}
+
+.movemodal__list-item {
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+}
+
+.movemodal__image.modal__image {
+  width: 200px;
+}

@@ -13,9 +13,6 @@ import BerryPage from "../BerryPage/BerryPage.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import LoginModal from "../LoginModal/LoginModal";
-import PokeModal from "../PokeModal/PokeModal";
-import MoveModal from "../MoveModal/MoveModal";
-import BerryModal from "../BerryModal/BerryModal";
 import Footer from "../Footer/Footer";
 
 // Utils, Constants, etc.
@@ -74,6 +71,16 @@ function App() {
 
   const openPokeModal = (card) => {
     setActiveModal("pokemodal");
+    setSelectedCard(card);
+  };
+
+  const openMoveModal = (card) => {
+    setActiveModal("movemodal");
+    setSelectedCard(card);
+  };
+
+  const openBerryModal = (card) => {
+    setActiveModal("berrymodal");
     setSelectedCard(card);
   };
 
@@ -214,7 +221,7 @@ function App() {
                   <MovePage
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
-                    onCardClick={openPokeModal}
+                    onCardClick={openMoveModal}
                     activeModal={activeModal}
                     card={selectedCard}
                     onClose={closeActiveModal}
@@ -252,9 +259,6 @@ function App() {
             isOpen={activeModal === "edit-profile"}
             handleEditProfile={handleEditProfile}
           />
-
-          {/* <MoveModal />
-        <BerryModal /> */}
         </div>
       </CurrentUserContext.Provider>
     </LikesProvider>

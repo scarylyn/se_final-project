@@ -1,11 +1,24 @@
-// responsible for rendering the user's profile page
-// the profile contains all of the user's favorited items,
-// each type of favorite will be in its own category row
-function Profile() {
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import "../PokePage/PokePage.css";
+import "../Main/Main.css";
+import NavBar from "../NavBar/NavBar";
+import ItemCard from "../ItemCard/ItemCard";
+
+function Profile({
+  onCardClick,
+  activeModal,
+  card,
+  onClose,
+  firstLetterCapital,
+}) {
   return (
-    <div>
-      <p>This will be the profile page someday</p>
-    </div>
+    <section className="home">
+      <NavBar />
+      <div className="home__landing">
+        <ul className="profile__list">The favorites will go here</ul>
+      </div>
+    </section>
   );
 }
 

@@ -5,6 +5,7 @@ import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
 import BerryModal from "../BerryModal/BerryModal";
+import Preloader from "../Preloader/Preloader";
 import { filterColors } from "../../utils/constants";
 
 function BerryPage({
@@ -18,6 +19,7 @@ function BerryPage({
   const [berryCards, setBerryCards] = useState([]);
   const [displayCount, setDisplayCount] = useState(28);
   const [filterActive, setFilterActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const batchFetchItems = async (berries, batchSize = 10) => {
     const results = [];
@@ -33,6 +35,8 @@ function BerryPage({
   };
 
   const handleFilterClick = (filterType) => {
+    setFilterActive(true);
+    setLoading(true);
     getBerries()
       .then((res) => {
         const promises = res.results.map((item) =>
@@ -59,7 +63,7 @@ function BerryPage({
         const displayed = enrichedBerries.slice(0, displayCount);
         setStoredBerries(enrichedBerries);
         setBerryCards(displayed);
-        setFilterActive(true);
+        setLoading(false);
       })
       .catch(console.error);
   };
@@ -79,6 +83,7 @@ function BerryPage({
   useEffect(() => {
     getBerries()
       .then((res) => {
+        setLoading(true);
         const promises = res.results.map((item) =>
           fetch(item.url).then((response) => response.json()),
         );
@@ -97,6 +102,7 @@ function BerryPage({
         setStoredBerries(enrichedBerries);
         setBerryCards(displayed);
         setFilterActive(false);
+        setLoading(false);
       })
       .catch(console.error);
   }, []);
@@ -110,21 +116,29 @@ function BerryPage({
         onFilterClick={handleFilterClick}
       />
       <div className="home__landing">
-        <ul className="pokepage__list">
-          {berryCards.map((item) => {
-            return (
-              <ItemCard
-                firstLetterCapital={firstLetterCapital}
-                key={item.id}
-                item={item}
-                onCardClick={onCardClick}
-              />
-            );
-          })}
-        </ul>
-        <button className="pokepage__more" onClick={loadMoreBerries}>
-          Load more
-        </button>
+        {loading ? (
+          <Preloader />
+        ) : (
+          <ul className="pokepage__list">
+            {berryCards.map((item) => {
+              return (
+                <ItemCard
+                  firstLetterCapital={firstLetterCapital}
+                  key={item.id}
+                  item={item}
+                  onCardClick={onCardClick}
+                />
+              );
+            })}
+          </ul>
+        )}
+        {loading ? (
+          <div></div>
+        ) : (
+          <button className="pokepage__more" onClick={loadMoreBerries}>
+            Load more
+          </button>
+        )}
       </div>
       {card?.name && (
         <BerryModal

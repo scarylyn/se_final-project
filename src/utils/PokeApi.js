@@ -1,4 +1,5 @@
 import { pokeApi } from "./constants";
+import { handleServerResponse } from "./auth";
 
 export const pokeOfTheDay = () => {
   const randomPoke = Math.floor(Math.random() * 386);
@@ -39,8 +40,4 @@ export const getBerries = () => {
       "Content-type": "application/json",
     },
   }).then(handleServerResponse);
-};
-
-export const handleServerResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 };

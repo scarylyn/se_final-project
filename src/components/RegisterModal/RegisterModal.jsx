@@ -38,7 +38,7 @@ const RegisterModal = ({ handleRegistration, isOpen, onClose }) => {
       className={`modal ${isOpen ? "modal__opened" : ""}`}
     >
       <label htmlFor="email" className="modal__label">
-        Email*{" "}
+        Email*
         <input
           type="email"
           name="email"
@@ -58,7 +58,7 @@ const RegisterModal = ({ handleRegistration, isOpen, onClose }) => {
         )}
       </label>
       <label htmlFor="password" className="modal__label">
-        Password*{" "}
+        Password*
         <input
           type="password"
           name="password"
@@ -78,7 +78,7 @@ const RegisterModal = ({ handleRegistration, isOpen, onClose }) => {
         )}
       </label>
       <label htmlFor="name" className="modal__label">
-        Name*{" "}
+        Name*
         <input
           name="name"
           className={`modal__input${
@@ -97,7 +97,7 @@ const RegisterModal = ({ handleRegistration, isOpen, onClose }) => {
         )}
       </label>
       <label htmlFor="avatar" className="modal__label">
-        Avatar URL*{" "}
+        Avatar URL*
         <input
           name="avatar"
           className={`modal__input${

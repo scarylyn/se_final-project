@@ -6,6 +6,7 @@ import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
 import PokeModal from "../PokeModal/PokeModal";
+import Preloader from "../Preloader/Preloader";
 import { filterColors } from "../../utils/constants";
 
 function PokePage({
@@ -19,9 +20,11 @@ function PokePage({
   const [pokeCards, setPokeCards] = useState([]);
   const [displayCount, setDisplayCount] = useState(28);
   const [filterActive, setFilterActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleFilterClick = (filterType) => {
     setFilterActive(true);
+    setLoading(true);
     filteredByType(filterType)
       .then((res) =>
         res.pokemon.map((res) =>
@@ -35,6 +38,7 @@ function PokePage({
           .slice(0, displayCount);
         setStoredPokes(filteredItems);
         setPokeCards(filteredItems);
+        setLoading(false);
       })
       .catch(console.error);
   };
@@ -54,6 +58,7 @@ function PokePage({
   useEffect(() => {
     getPokemon()
       .then((res) => {
+        setLoading(true);
         const promises = res.results.map((item) =>
           fetch(item.url).then((response) => response.json()),
         );
@@ -66,6 +71,7 @@ function PokePage({
         setStoredPokes(filteredItems);
         setPokeCards(displayed);
         setFilterActive(false);
+        setLoading(false);
       })
       .catch(console.error);
   }, []);
@@ -97,21 +103,29 @@ function PokePage({
         onFilterClick={handleFilterClick}
       />
       <div className="home__landing">
-        <ul className="pokepage__list">
-          {pokeCards.map((item) => {
-            return (
-              <ItemCard
-                firstLetterCapital={firstLetterCapital}
-                key={item.id}
-                item={item}
-                onCardClick={onCardClick}
-              />
-            );
-          })}
-        </ul>
-        <button className="pokepage__more" onClick={loadMorePokes}>
-          Load more
-        </button>
+        {loading ? (
+          <Preloader />
+        ) : (
+          <ul className="pokepage__list">
+            {pokeCards.map((item) => {
+              return (
+                <ItemCard
+                  firstLetterCapital={firstLetterCapital}
+                  key={item.id}
+                  item={item}
+                  onCardClick={onCardClick}
+                />
+              );
+            })}
+          </ul>
+        )}
+        {loading ? (
+          <div></div>
+        ) : (
+          <button className="pokepage__more" onClick={loadMorePokes}>
+            Load more
+          </button>
+        )}
       </div>
       {card?.name && (
         <PokeModal
@@ -129,7 +143,6 @@ function PokePage({
 PokePage.propTypes = {
   onCardClick: PropTypes.func,
   activeModal: PropTypes.node,
-  card: PropTypes.node,
   onClose: PropTypes.func,
   firstLetterCapital: PropTypes.func,
 };

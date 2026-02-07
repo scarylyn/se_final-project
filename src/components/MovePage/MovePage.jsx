@@ -6,6 +6,7 @@ import { getMoves } from "../../utils/PokeApi";
 import { filterColors } from "../../utils/constants";
 import NavBar from "../NavBar/NavBar";
 import MoveModal from "../MoveModal/MoveModal";
+import Preloader from "../Preloader/Preloader";
 import ItemCard from "../ItemCard/ItemCard";
 
 function MovePage({
@@ -19,8 +20,11 @@ function MovePage({
   const [moveCards, setMoveCards] = useState([]);
   const [displayCount, setDisplayCount] = useState(28);
   const [filterActive, setFilterActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleFilterClick = (filterType) => {
+    setFilterActive(true);
+    setLoading(true);
     getMoves()
       .then((res) => {
         const promises = res.results.map((item) =>
@@ -38,7 +42,7 @@ function MovePage({
         const displayed = filteredItems.slice(0, displayCount);
         setStoredMoves(filteredItems);
         setMoveCards(displayed);
-        setFilterActive(true);
+        setLoading(false);
       })
       .catch(console.error);
   };
@@ -58,6 +62,7 @@ function MovePage({
   useEffect(() => {
     getMoves()
       .then((res) => {
+        setLoading(true);
         const promises = res.results.map((item) =>
           fetch(item.url).then((response) => response.json()),
         );
@@ -75,6 +80,7 @@ function MovePage({
         setStoredMoves(filteredItems);
         setMoveCards(displayed);
         setFilterActive(false);
+        setLoading(false);
       })
       .catch(console.error);
   }, []);
@@ -88,21 +94,29 @@ function MovePage({
         onFilterClick={handleFilterClick}
       />
       <div className="home__landing">
-        <ul className="pokepage__list">
-          {moveCards.map((item) => {
-            return (
-              <ItemCard
-                firstLetterCapital={firstLetterCapital}
-                key={item.id}
-                item={item}
-                onCardClick={onCardClick}
-              />
-            );
-          })}
-        </ul>
-        <button className="pokepage__more" onClick={loadMoreMoves}>
-          Load more
-        </button>
+        {loading ? (
+          <Preloader />
+        ) : (
+          <ul className="pokepage__list">
+            {moveCards.map((item) => {
+              return (
+                <ItemCard
+                  firstLetterCapital={firstLetterCapital}
+                  key={item.id}
+                  item={item}
+                  onCardClick={onCardClick}
+                />
+              );
+            })}
+          </ul>
+        )}
+        {loading ? (
+          <div></div>
+        ) : (
+          <button className="pokepage__more" onClick={loadMoreMoves}>
+            Load more
+          </button>
+        )}
       </div>
       {card?.name && (
         <MoveModal

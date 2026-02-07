@@ -235,7 +235,7 @@ function App() {
                   <BerryPage
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
-                    onCardClick={openMoveModal}
+                    onCardClick={openBerryModal}
                     activeModal={activeModal}
                     card={selectedCard}
                     onClose={closeActiveModal}

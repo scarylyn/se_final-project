@@ -12,7 +12,11 @@ function MoveModal({ firstLetterCapital, card, onClose, isOpen }) {
     pokemon: [],
   });
   const { likes, toggleLike } = useLikes();
-  const isLiked = !!likes[card.name];
+  const isLiked = likes.some((likedItem) => {
+    if (likedItem.name === card.name) {
+      return true;
+    }
+  });
 
   useEffect(() => {
     if (card && card.contest_type && card.contest_type.name) {
@@ -93,13 +97,14 @@ function MoveModal({ firstLetterCapital, card, onClose, isOpen }) {
               "Contest effect Placeholder"}
           </h3>
 
-          <div className="movemodal__list">
+          <ul className="movemodal__list">
+            <p className="movemodal__list-title">Who can learn this move?</p>
             {contestDetails.pokemon?.map((poke) => (
-              <div key={poke} className="movemodal__list-item">
+              <li key={poke} className="movemodal__list-item">
                 {firstLetterCapital(poke) || "Pokemon List Item Placeholder"}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </div>

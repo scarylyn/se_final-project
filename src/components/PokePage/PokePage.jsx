@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPokemon, filteredByType } from "../../utils/PokeApi";
+import PropTypes from "prop-types";
 import "./PokePage.css";
 import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
@@ -124,5 +125,13 @@ function PokePage({
     </section>
   );
 }
+
+PokePage.propTypes = {
+  onCardClick: PropTypes.func,
+  activeModal: PropTypes.node,
+  card: PropTypes.node,
+  onClose: PropTypes.func,
+  firstLetterCapital: PropTypes.func,
+};
 
 export default PokePage;

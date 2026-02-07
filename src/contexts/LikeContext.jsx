@@ -1,13 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const LikesContext = createContext();
+
+// likes system needs to be adjusted to add the entire item as a like object, not just the names of items
 
 export function LikesProvider({ children }) {
   const [likes, setLikes] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem("likes") || "{}");
+      const stored = JSON.parse(localStorage.getItem("likes") || "[]");
+      if (!Array.isArray(stored)) {
+        return [];
+      }
+      return stored;
     } catch {
-      return {};
+      return [];
     }
   });
 
@@ -16,25 +23,36 @@ export function LikesProvider({ children }) {
   }, [likes]);
 
   const toggleLike = async (name, itemData) => {
-    // optimistic update
     setLikes((prev) => {
-      const next = { ...prev };
-      if (next[name]) delete next[name];
-      else next[name] = true;
-      return next;
+      const itemExists = prev.find((item) => item.name === name);
+
+      if (itemExists) {
+        return prev.filter((item) => item.name !== name);
+      } else {
+        const likeObject = {
+          name: itemData.name,
+          sprites: itemData.sprites?.front_default,
+        };
+        console.log("Item Liked:", likeObject);
+        return [...prev, likeObject];
+      }
     });
 
-    // persist to API (optional) - do not block UI
+    // persist to API
     try {
-      // await api.like(id) or api.unlike(id) depending on prev state
+      // await api.like(itemData) or api.unlike(name)
     } catch (err) {
-      // revert on error (simple strategy: re-read localStorage or flip back)
       setLikes((prev) => {
-        const next = { ...prev };
-        // naive revert: flip
-        if (next[name]) delete next[name];
-        else next[name] = true;
-        return next;
+        const itemExists = prev.find((item) => item.name === name);
+
+        if (itemExists) {
+          return [
+            ...prev,
+            { name: itemData.name, sprites: itemData.sprites.front_default },
+          ];
+        } else {
+          return prev.filter((item) => item.name !== name);
+        }
       });
     }
   };
@@ -45,6 +63,10 @@ export function LikesProvider({ children }) {
     </LikesContext.Provider>
   );
 }
+
+LikesProvider.propTypes = {
+  children: PropTypes.node,
+};
 
 export function useLikes() {
   return useContext(LikesContext);

@@ -4,7 +4,11 @@ import moveImg from "../../assets/TM-disc.png";
 
 function ItemCard({ item, onCardClick, firstLetterCapital }) {
   const { likes, toggleLike } = useLikes();
-  const isLiked = !!likes[item.name];
+  const isLiked = likes.some((likedItem) => {
+    if (likedItem.name === item.name) {
+      return true;
+    }
+  });
 
   const handleCardClick = () => {
     onCardClick(item);

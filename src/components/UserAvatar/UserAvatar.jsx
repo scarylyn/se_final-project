@@ -1,14 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
+import PropTypes from "prop-types";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import pokemon from "../../assets/ninetales.png";
 
-function UserAvatar({
-  handleAddClick,
-  isLoggedIn,
-  openRegistrationModal,
-  openSignInModal,
-}) {
+function UserAvatar({ isLoggedIn, openRegistrationModal, openSignInModal }) {
   const currentUser = useContext(CurrentUserContext);
 
   if (isLoggedIn && currentUser && currentUser._id) {
@@ -21,7 +17,7 @@ function UserAvatar({
           {currentUser.avatar ? (
             <img
               src={currentUser.avatar}
-              alt={currentUser.name}
+              alt={pokemon}
               className="header__avatar"
             />
           ) : (
@@ -43,5 +39,11 @@ function UserAvatar({
     );
   }
 }
+
+UserAvatar.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  openRegistrationModal: PropTypes.func,
+  openSignInModal: PropTypes.func,
+};
 
 export default UserAvatar;

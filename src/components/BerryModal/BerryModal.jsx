@@ -10,10 +10,12 @@ function BerryModal({ firstLetterCapital, card, onClose, isOpen }) {
     effects: "",
   });
   const { likes, toggleLike } = useLikes();
-  const isLiked = !!likes[card.name];
+  const isLiked = likes.some((likedItem) => {
+    if (likedItem.name === card.name) {
+      return true;
+    }
+  });
 
-  // implement useEffects similar to moveModal to get the berry info for the modal, maybe?
-  // filter isn't working, see about mapping the info?
   useEffect(() => {
     if (card && card.flavors) {
       const filteredFlavors = card.flavors.map((flavors) => {
@@ -26,7 +28,7 @@ function BerryModal({ firstLetterCapital, card, onClose, isOpen }) {
     }
 
     if (card) {
-      fetch(card.item.url)
+      fetch(card.item?.url)
         .then((response) => response.json())
         .then((effectData) => {
           setBerryInfo((prevState) => ({
@@ -63,14 +65,14 @@ function BerryModal({ firstLetterCapital, card, onClose, isOpen }) {
           alt={card.name}
         />
         <div className="movemodal__footer modal__footer">
-          <h1 className="modal__caption">
+          <h1 className="berrymodal__caption modal__caption">
             {firstLetterCapital(card.name) || "Berry Name Placeholder"}
           </h1>
           <h2 className="berrymodal__flavors modal__caption">
-            Flavors - {berryInfo.flavors || "Berry Type Placeholder"}
+            Flavors - {berryInfo?.flavors || "Berry Type Placeholder"}
           </h2>
           <p className="berrymodal__effects modal__caption">
-            Effects - {berryInfo.effects || "Berry Effect Placeholder"}
+            Effects - {berryInfo?.effects || "Berry Effect Placeholder"}
           </p>
         </div>
       </div>

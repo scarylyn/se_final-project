@@ -31,14 +31,23 @@
 }
 
 .movemodal__list {
-  margin-top: 10px;
-  padding: 0;
+  margin: 10px 0 0 0;
+  padding: 0 0 0 12px;
+}
+
+.movemodal__list-title {
+  font-weight: 500;
+  margin: 10px 0 5px 0;
 }
 
 .movemodal__list-item {
   gap: 5px;
   margin: 0;
   padding: 0;
+}
+
+.movemodal__list-item::marker {
+  font-size: 15px;
 }
 
 .movemodal__image.modal__image {

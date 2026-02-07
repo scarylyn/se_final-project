@@ -2,11 +2,16 @@ import "./PokeModal.css";
 import "../ItemModal/ItemModal.css";
 import { useState, useEffect } from "react";
 import { useLikes } from "../../contexts/LikeContext";
+import PropTypes from "prop-types";
 
 function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
   const [moveDetails, setMoveDetails] = useState([]);
   const { likes, toggleLike } = useLikes();
-  const isLiked = !!likes[card.name];
+  const isLiked = likes.some((likedItem) => {
+    if (likedItem.name === card.name) {
+      return true;
+    }
+  });
 
   useEffect(() => {
     if (card?.moves) {
@@ -57,16 +62,18 @@ function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
         />
         <div className="pokemodal__footer">
           <h2 className="modal__caption">{firstLetterCapital(card.name)}</h2>
-          <div className="pokemodal__moves">
+          <ul className="pokemodal__move-list">
             {moveDetails.map((move) => {
               return (
-                <div key={move.id} className="pokemodal__move-item">
-                  <h3>{firstLetterCapital(move.name)}</h3>
-                  <p>
+                <li key={move.id} className="pokemodal__move-item">
+                  <h3 className="pokemodal__move-caption">
+                    {firstLetterCapital(move.name)}
+                  </h3>
+                  <p className="pokemodal__move-caption">
                     <strong>Contest Type: </strong>
                     {firstLetterCapital(move.contest_type?.name)}
                   </p>
-                  <p>
+                  <p className="pokemodal__move-caption">
                     <strong>Description: </strong>
                     {
                       move.contest_effect?.effect_entries?.find(
@@ -74,14 +81,21 @@ function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
                       )?.effect
                     }
                   </p>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </div>
     </div>
   );
 }
+
+PokeModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  card: PropTypes.node,
+  firstLetterCapital: PropTypes.func,
+};
 
 export default PokeModal;

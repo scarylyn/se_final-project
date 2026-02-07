@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "../ModalWithForm/ModalWithForm.css";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
@@ -116,6 +117,12 @@ const RegisterModal = ({ handleRegistration, isOpen, onClose }) => {
       </label>
     </ModalWithForm>
   );
+};
+
+RegisterModal.propTypes = {
+  handleRegistration: PropTypes.func,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
 export default RegisterModal;

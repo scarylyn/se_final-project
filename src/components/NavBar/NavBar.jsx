@@ -1,5 +1,6 @@
 import "./NavBar.css";
 import { NavLink, useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
   const location = useLocation();
@@ -61,6 +62,10 @@ function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
       </div>
     </div>
   );
+}
+
+NavBar.propTypes = {
+  onFilterClick: PropTypes.func,
 }
 
 export default NavBar;

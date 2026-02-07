@@ -25,7 +25,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 function App() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // dont forget to change back to false before submitting
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
 
@@ -36,7 +36,7 @@ function App() {
     }
 
     auth
-      .checkTokenValidity()
+      .checkTokenValidity(token)
       .then((res) => {
         setUserData(res);
         setIsLoggedIn(true);
@@ -114,7 +114,7 @@ function App() {
       .login(email, password)
       .then((res) => {
         localStorage.setItem("jwt", res.token);
-        auth.checkTokenValidity().then((res) => {
+        auth.checkTokenValidity(res.token).then((res) => {
           setUserData(res);
           setIsLoggedIn(true);
           console.log("You've been signed in");
@@ -192,10 +192,14 @@ function App() {
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
+                      activeModal={activeModal}
                       userData={userData}
-                      onCardClick={handleCardClick}
+                      openPokeModal={openPokeModal}
+                      openBerryModal={openBerryModal}
+                      openMoveModal={openMoveModal}
                       handleEditProfile={handleEditProfile}
                       openEditProfileModal={openEditProfileModal}
+                      firstLetterCapital={firstLetterCapital}
                       signOut={signOut}
                     />
                   </ProtectedRoute>

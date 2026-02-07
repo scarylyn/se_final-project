@@ -1,4 +1,5 @@
 import { useLikes } from "../../contexts/LikeContext";
+import PropTypes from "prop-types";
 import "./ItemCard.css";
 import moveImg from "../../assets/TM-disc.png";
 
@@ -37,5 +38,10 @@ function ItemCard({ item, onCardClick, firstLetterCapital }) {
     </li>
   );
 }
+
+ItemCard.propTypes = {
+  onCardClick: PropTypes.func,
+  firstLetterCapital: PropTypes.func,
+};
 
 export default ItemCard;

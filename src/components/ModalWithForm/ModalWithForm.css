@@ -103,11 +103,20 @@
   visibility: visible;
 }
 
-@media screen and (max-width: 1280px) {
-}
-
-@media screen and (max-width: 768px) {
-}
-
 @media screen and (max-width: 320px) {
+  .modal__content {
+    max-height: 500px;
+    max-width: 300px;
+  }
+
+  .modal__label {
+    font-size: 14px;
+  }
+
+  .modal__submit {
+    font-size: 14px;
+    width: 90px;
+    height: 26px;
+    padding: 0;
+  }
 }

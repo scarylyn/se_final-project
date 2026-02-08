@@ -5,7 +5,7 @@ import "./PokePage.css";
 import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
-import PokeModal from "../PokeModal/PokeModal";
+import ItemModal from "../ItemModal/ItemModal";
 import Preloader from "../Preloader/Preloader";
 import { filterColors } from "../../utils/constants";
 
@@ -128,12 +128,12 @@ function PokePage({
         )}
       </div>
       {card?.name && (
-        <PokeModal
+        <ItemModal
           firstLetterCapital={firstLetterCapital}
           activeModal={activeModal}
           card={card}
           onClose={onClose}
-          isOpen={activeModal === "pokemodal"}
+          isOpen={activeModal === "item-modal"}
         />
       )}
     </section>

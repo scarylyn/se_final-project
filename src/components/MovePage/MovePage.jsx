@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { getMoves } from "../../utils/PokeApi";
 import { filterColors } from "../../utils/constants";
 import NavBar from "../NavBar/NavBar";
-import MoveModal from "../MoveModal/MoveModal";
+import ItemModal from "../ItemModal/ItemModal";
 import Preloader from "../Preloader/Preloader";
 import ItemCard from "../ItemCard/ItemCard";
 
@@ -118,12 +118,12 @@ function MovePage({
         )}
       </div>
       {card?.name && (
-        <MoveModal
+        <ItemModal
           firstLetterCapital={firstLetterCapital}
           activeModal={activeModal}
           card={card}
           onClose={onClose}
-          isOpen={activeModal === "movemodal"}
+          isOpen={activeModal === "item-modal"}
         />
       )}
     </section>

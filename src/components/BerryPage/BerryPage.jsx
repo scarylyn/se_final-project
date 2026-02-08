@@ -4,7 +4,7 @@ import "../PokePage/PokePage.css";
 import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
-import BerryModal from "../BerryModal/BerryModal";
+import ItemModal from "../ItemModal/ItemModal";
 import Preloader from "../Preloader/Preloader";
 import { filterColors } from "../../utils/constants";
 
@@ -141,12 +141,12 @@ function BerryPage({
         )}
       </div>
       {card?.name && (
-        <BerryModal
+        <ItemModal
           firstLetterCapital={firstLetterCapital}
           activeModal={activeModal}
           card={card}
           onClose={onClose}
-          isOpen={activeModal === "berrymodal"}
+          isOpen={activeModal === "item-modal"}
         />
       )}
     </section>

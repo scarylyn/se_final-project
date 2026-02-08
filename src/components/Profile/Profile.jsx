@@ -5,32 +5,19 @@ import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
 import Preloader from "../Preloader/Preloader";
-import PokeModal from "../PokeModal/PokeModal";
-import MoveModal from "../MoveModal/MoveModal";
-import BerryModal from "../BerryModal/BerryModal";
+import FavesModal from "../ItemModal/ItemModal";
 
 // trying to get the modals to appear on the page...may have to make special favorites modal
 
-function Profile({ onCardClick, card, onClose, firstLetterCapital }) {
+function Profile({
+  onCardClick,
+  activeModal,
+  card,
+  onClose,
+  firstLetterCapital,
+}) {
   const favorites = JSON.parse(localStorage.getItem("likes"));
   const [loading, setLoading] = useState(false);
-  const [activeModal, setActiveModal] = useState("");
-  const [selectedCard, setSelectedCard] = useState({});
-
-  const openPokeModal = (card) => {
-    setActiveModal("pokemodal");
-    setSelectedCard(card);
-  };
-
-  const openMoveModal = (card) => {
-    setActiveModal("movemodal");
-    setSelectedCard(card);
-  };
-
-  const openBerryModal = (card) => {
-    setActiveModal("berrymodal");
-    setSelectedCard(card);
-  };
 
   useEffect(() => {
     console.log("Favorites:", favorites);
@@ -57,36 +44,15 @@ function Profile({ onCardClick, card, onClose, firstLetterCapital }) {
           </ul>
         )}
       </div>
-      {/* {card?.name && (
-        <PokeModal
-          onCardClick={openPokeModal}
+      {card?.name && (
+        <FavesModal
           firstLetterCapital={firstLetterCapital}
           activeModal={activeModal}
-          card={selectedCard}
+          card={card}
           onClose={onClose}
-          isOpen={activeModal === "pokemodal"}
+          isOpen={activeModal === "favesmodal"}
         />
       )}
-      {card?.name && (
-        <MoveModal
-          onCardClick={openMoveModal}
-          firstLetterCapital={firstLetterCapital}
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={onClose}
-          isOpen={activeModal === "movemodal"}
-        />
-      )}
-      {card?.name && (
-        <BerryModal
-          onCardClick={openBerryModal}
-          firstLetterCapital={firstLetterCapital}
-          activeModal={activeModal}
-          card={selectedCard}
-          onClose={onClose}
-          isOpen={activeModal === "berrymodal"}
-        />
-      )} */}
     </section>
   );
 }

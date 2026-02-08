@@ -57,7 +57,7 @@ function App() {
   };
 
   const handleCardClick = (card) => {
-    setActiveModal("preview");
+    setActiveModal("item-modal");
     setSelectedCard(card);
   };
 
@@ -69,21 +69,6 @@ function App() {
     if (evt.key === "Escape") {
       closeActiveModal();
     }
-  };
-
-  const openPokeModal = (card) => {
-    setActiveModal("pokemodal");
-    setSelectedCard(card);
-  };
-
-  const openMoveModal = (card) => {
-    setActiveModal("movemodal");
-    setSelectedCard(card);
-  };
-
-  const openBerryModal = (card) => {
-    setActiveModal("berrymodal");
-    setSelectedCard(card);
   };
 
   const openRegistrationModal = () => {
@@ -199,11 +184,12 @@ function App() {
                       activeModal={activeModal}
                       card={selectedCard}
                       onCardClick={handleCardClick}
-                      onCLose={closeActiveModal}
+                      onClose={closeActiveModal}
                       handleEditProfile={handleEditProfile}
                       openEditProfileModal={openEditProfileModal}
                       firstLetterCapital={firstLetterCapital}
                       signOut={signOut}
+                      isOpen={activeModal === "item-modal"}
                     />
                   </ProtectedRoute>
                 }
@@ -214,11 +200,11 @@ function App() {
                   <PokePage
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
-                    onCardClick={openPokeModal}
+                    onCardClick={handleCardClick}
                     activeModal={activeModal}
                     card={selectedCard}
                     onClose={closeActiveModal}
-                    isOpen={activeModal === "pokemodal"}
+                    isOpen={activeModal === "item-modal"}
                   />
                 }
               />
@@ -228,11 +214,11 @@ function App() {
                   <MovePage
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
-                    onCardClick={openMoveModal}
+                    onCardClick={handleCardClick}
                     activeModal={activeModal}
                     card={selectedCard}
                     onClose={closeActiveModal}
-                    isOpen={activeModal === "movemodal"}
+                    isOpen={activeModal === "item-modal"}
                   />
                 }
               />
@@ -242,11 +228,11 @@ function App() {
                   <BerryPage
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
-                    onCardClick={openBerryModal}
+                    onCardClick={handleCardClick}
                     activeModal={activeModal}
                     card={selectedCard}
                     onClose={closeActiveModal}
-                    isOpen={activeModal === "berrymodal"}
+                    isOpen={activeModal === "item-modal"}
                   />
                 }
               />

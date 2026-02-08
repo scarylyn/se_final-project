@@ -18,34 +18,41 @@ import Footer from "../Footer/Footer";
 
 // Utils, Constants, etc.
 import { LikesProvider } from "../../contexts/LikeContext.jsx";
-import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext.jsx"; // user context not actually implemented, but here for future backend implementation
 import * as auth from "../../utils/auth.js";
 import * as api from "../../utils/PokeApi.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 
+// every commented about block from here on out is saved info for the backend interactions (if I connect a backend)
 function App() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // dont forget to change back to false before submitting
+  const [userData, setUserData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const userExists = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (!token) {
-      return;
+    console.log("Current user:", userExists);
+    if (userExists) {
+      setUserData(userExists);
+      setIsLoggedIn(true);
     }
+    // const token = localStorage.getItem("jwt");
+    // if (!token) {
+    //   return;
+    // }
 
-    auth
-      .checkTokenValidity(token)
-      .then((res) => {
-        setUserData(res);
-        setIsLoggedIn(true);
-      })
-      .catch((error) => {
-        setIsLoggedIn(false);
-        console.error(error);
-      });
+    // auth
+    //   .checkTokenValidity(token)
+    //   .then((res) => {
+    //     setUserData(res);
+    //     setIsLoggedIn(true);
+    //   })
+    //   .catch((error) => {
+    //     setIsLoggedIn(false);
+    //     console.error(error);
+    //   });
   }, []);
 
   const firstLetterCapital = (string) => {
@@ -76,16 +83,33 @@ function App() {
   };
 
   const handleRegistration = ({ email, password, name, avatar }) => {
-    auth
-      .register(email, password, name, avatar)
-      .then(() => {
-        closeActiveModal();
-        handleSignIn({ email, password });
-      })
-      .catch((error) => {
-        console.error(error);
-        return;
-      });
+    const newUser = {
+      email: email,
+      password: password,
+      name: name,
+      avatar: avatar,
+    };
+
+    if (newUser === userExists) {
+      return console.log("User already exists");
+    }
+    if (newUser !== userExists) {
+      localStorage.setItem("user", JSON.stringify(newUser));
+      console.log("Welcome, new user,", newUser.name, "!");
+      setUserData(newUser);
+      closeActiveModal();
+      setIsLoggedIn(true);
+    }
+    // auth
+    //   .register(email, password, name, avatar)
+    //   .then(() => {
+    //     closeActiveModal();
+    //     handleSignIn({ email, password });
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     return;
+    //   });
   };
 
   const openSignInModal = () => {
@@ -93,48 +117,74 @@ function App() {
   };
 
   const handleSignIn = ({ email, password }) => {
-    if (!email || !password) {
+    if (userExists === null) {
+      console.log("No user found, try registering!");
       return;
     }
 
-    auth
-      .login(email, password)
-      .then((res) => {
-        localStorage.setItem("jwt", res.token);
-        auth.checkTokenValidity(res.token).then((res) => {
-          setUserData(res);
-          setIsLoggedIn(true);
-          console.log("You've been signed in");
-          navigate("/profile");
-          closeActiveModal();
-        });
-      })
-      .catch(console.error);
+    if (email && password !== userExists?.email && userExists?.password) {
+      console.log("Login failed, try again");
+      return;
+    }
+
+    if (email && password === userExists?.email && userExists?.password) {
+      setUserData(userExists);
+      setIsLoggedIn(true);
+      console.log("Welcome back,", userExists.name, "!");
+      navigate("/profile");
+      closeActiveModal();
+    }
+
+    // if (!email || !password) {
+    //   return;
+    // }
+    // auth
+    //   .login(email, password)
+    //   .then((res) => {
+    //     localStorage.setItem("jwt", res.token);
+    //     auth.checkTokenValidity(res.token).then((res) => {
+    //       setUserData(res);
+    //       setIsLoggedIn(true);
+    //       console.log("You've been signed in");
+    //       navigate("/profile");
+    //       closeActiveModal();
+    //     });
+    //   })
+    //   .catch(console.error);
   };
 
   const signOut = () => {
     console.log("You've been signed out");
-    localStorage.removeItem("jwt");
     setIsLoggedIn(false);
-    setUserData(null);
     navigate("/");
-    setUserData("");
   };
 
   const openEditProfileModal = () => {
+    console.log("Opening modal...");
     setActiveModal("edit-profile");
   };
 
-  const handleEditProfile = ({ name, avatar, token }) => {
-    auth
-      .updateUserProfile(userData._id, userData.email, name, avatar, token)
-      .then((res) => {
-        setUserData({ ...userData, name, avatar, token });
-        closeActiveModal();
-      })
-      .catch(() => {
-        console.error();
-      });
+  const handleEditProfile = ({ name, avatar }) => {
+    if (!userExists) {
+      closeActiveModal();
+      return;
+    } else {
+      const newInfo = { ...userExists, name: name, avatar: avatar };
+      const setInfo = localStorage.setItem("user", JSON.stringify(newInfo));
+      console.log("Editing profile...", newInfo);
+      closeActiveModal();
+      setIsLoggedIn(true);
+      setUserData(setInfo);
+    }
+    // auth
+    //   .updateUserProfile(userData._id, userData.email, name, avatar, token)
+    //   .then((res) => {
+    //     setUserData({ ...userData, name, avatar, token });
+    //     closeActiveModal();
+    //   })
+    //   .catch(() => {
+    //     console.error();
+    //   });
   };
 
   useEffect(() => {
@@ -173,13 +223,24 @@ function App() {
               />
               <Route
                 path="/"
-                element={<Main firstLetterCapital={firstLetterCapital} />}
+                element={
+                  <Main
+                    isLoggedIn={isLoggedIn}
+                    firstLetterCapital={firstLetterCapital}
+                    activeModal={activeModal}
+                    onClose={closeActiveModal}
+                    handleEditProfile={handleEditProfile}
+                    openEditProfileModal={openEditProfileModal}
+                    signOut={signOut}
+                  />
+                }
               />
               <Route
                 path="/profile"
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
+                      isLoggedIn={isLoggedIn}
                       userData={userData}
                       activeModal={activeModal}
                       card={selectedCard}

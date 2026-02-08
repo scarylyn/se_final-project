@@ -27,6 +27,15 @@
   margin-top: 18px;
 }
 
+.nav__profile-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav__profile-btns-edit {
+}
+
 .nav__filter-buttons {
   max-width: 100px;
   display: flex;

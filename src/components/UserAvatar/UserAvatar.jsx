@@ -7,7 +7,7 @@ import pokemon from "../../assets/ninetales.png";
 function UserAvatar({ isLoggedIn, openRegistrationModal, openSignInModal }) {
   const currentUser = useContext(CurrentUserContext);
 
-  if (isLoggedIn && currentUser && currentUser._id) {
+  if (isLoggedIn && currentUser) {
     const firstLetter = currentUser.name.charAt(0).toUpperCase();
 
     return (
@@ -17,7 +17,7 @@ function UserAvatar({ isLoggedIn, openRegistrationModal, openSignInModal }) {
           {currentUser.avatar ? (
             <img
               src={currentUser.avatar}
-              alt={pokemon}
+              alt={firstLetter}
               className="header__avatar"
             />
           ) : (

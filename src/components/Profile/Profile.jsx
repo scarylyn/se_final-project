@@ -10,10 +10,14 @@ import FavesModal from "../ItemModal/ItemModal";
 // trying to get the modals to appear on the page...may have to make special favorites modal
 
 function Profile({
+  isLoggedIn,
   onCardClick,
   activeModal,
   card,
   onClose,
+  handleEditProfile,
+  openEditProfileModal,
+  signOut,
   firstLetterCapital,
 }) {
   const favorites = JSON.parse(localStorage.getItem("likes"));
@@ -25,7 +29,14 @@ function Profile({
 
   return (
     <section className="home">
-      <NavBar />
+      <NavBar
+        isLoggedIn={isLoggedIn}
+        activeModal={activeModal}
+        openEditProfileModal={openEditProfileModal}
+        onClose={onClose}
+        handleEditProfile={handleEditProfile}
+        signOut={signOut}
+      />
       <div className="home__landing">
         {loading ? (
           <Preloader />

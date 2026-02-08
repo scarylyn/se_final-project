@@ -2,7 +2,17 @@ import "./NavBar.css";
 import { NavLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
-function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
+function NavBar({
+  isLoggedIn,
+  showFilters,
+  filterOptions,
+  onFilterClick,
+  filterColors,
+  activeModal,
+  onClose,
+  openEditProfileModal,
+  signOut,
+}) {
   const location = useLocation();
 
   return (
@@ -59,6 +69,38 @@ function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
             ))}
           </div>
         )}
+        <div className="nav__profile-btns">
+          {(isLoggedIn && location.pathname === "/") ||
+          location.pathname === "/pokemon" ||
+          location.pathname === "/moves" ||
+          location.pathname === "/berries" ? (
+            <NavLink to="/profile">
+              <button className="nav__btn nav__profile-btns-edit">
+                Go to Profile
+              </button>
+            </NavLink>
+          ) : (
+            <button
+              isLoggedIn={isLoggedIn}
+              onClose={onClose}
+              isOpen={activeModal === "edit-profile"}
+              onClick={openEditProfileModal}
+              className="nav__btn nav__profile-btns-edit"
+            >
+              Edit Profile
+            </button>
+          )}
+          {isLoggedIn ? (
+            <button
+              className="nav__btn nav__profile-btns-edit"
+              onClick={signOut}
+            >
+              Log Out
+            </button>
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -66,6 +108,6 @@ function NavBar({ showFilters, filterOptions, onFilterClick, filterColors }) {
 
 NavBar.propTypes = {
   onFilterClick: PropTypes.func,
-}
+};
 
 export default NavBar;

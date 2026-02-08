@@ -4,7 +4,15 @@ import NavBar from "../NavBar/NavBar";
 import Preloader from "../Preloader/Preloader";
 import { pokeOfTheDay } from "../../utils/PokeApi";
 
-function Main({ firstLetterCapital }) {
+function Main({
+  isLoggedIn,
+  firstLetterCapital,
+  activeModal,
+  onClose,
+  handleEditProfile,
+  openEditProfileModal,
+  signOut,
+}) {
   const [pokeName, setPokeName] = useState(null);
   const [pokePic, setPokePic] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +47,14 @@ function Main({ firstLetterCapital }) {
 
   return (
     <section className="home">
-      <NavBar />
+      <NavBar
+        isLoggedIn={isLoggedIn}
+        activeModal={activeModal}
+        openEditProfileModal={openEditProfileModal}
+        onClose={onClose}
+        handleEditProfile={handleEditProfile}
+        signOut={signOut}
+      />
       <div className="home__landing">
         <h1 className="home__welcome">Welcome to the ContestDex!</h1>
         <h2 className="home__poke">The Pokemon of the day is...</h2>

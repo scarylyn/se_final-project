@@ -1,4 +1,3 @@
-import "./MovePage.css";
 import "../Main/Main.css";
 import "../PokePage/PokePage.css";
 import { useState, useEffect } from "react";

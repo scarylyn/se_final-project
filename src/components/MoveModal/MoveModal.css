@@ -53,3 +53,30 @@
 .movemodal__image.modal__image {
   width: 200px;
 }
+
+@media screen and (max-width: 320px) {
+  .movemodal__content.modal__content {
+    max-height: 500px;
+    max-width: 300px;
+  }
+
+  .movemodal__image.modal__image {
+    width: 150px;
+  }
+
+  .movemodal__title.modal__caption {
+    font-size: 18px;
+  }
+
+  .movemodal__caption {
+    font-size: 18px;
+  }
+
+  .movemodal__list-item {
+    font-size: 12px;
+  }
+
+  .movemodal__list-item::marker {
+    font-size: 12px;
+  }
+}

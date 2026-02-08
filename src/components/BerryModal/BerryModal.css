@@ -13,3 +13,21 @@
 .berrymodal__caption {
   font-size: 24px;
 }
+
+@media screen and (max-width: 320px) {
+  .berrymodal__image.modal__image {
+    width: 100px;
+  }
+
+  .berrymodal__caption {
+    font-size: 18px;
+  }
+
+  .berrymodal__flavors {
+    font-size: 18px;
+  }
+
+  .berrymodal__effects {
+    font-size: 18px;
+  }
+}

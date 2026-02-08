@@ -41,3 +41,10 @@
   border-radius: 8px;
   background-color: rgba(110, 156, 109, 0.5);
 }
+
+@media screen and (max-width: 320px) {
+  .pokemodal__content.modal__content {
+    max-height: 500px;
+    max-width: 300px;
+  }
+}

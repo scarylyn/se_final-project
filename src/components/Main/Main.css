@@ -43,3 +43,57 @@
 .home__poke-img {
   width: 236px;
 }
+
+@media screen and (max-width: 1280px) {
+  .home {
+    max-width: 1280px;
+  }
+
+  .home__landing {
+    max-width: 1040px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    max-width: 768px;
+  }
+
+  .home__landing {
+    max-width: 575px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .home {
+    max-width: 320px;
+  }
+
+  .home__landing {
+    max-width: 200px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  /*top right bottom left */
+  .home__welcome {
+    text-align: center;
+    font-size: 24px;
+    margin: 24px 5px 5px 5px;
+  }
+
+  .home__poke {
+    text-align: center;
+    font-size: 16px;
+    margin: 24px 5px 5px 5px;
+  }
+
+  .home__poke-btm {
+    text-align: center;
+    margin: 5px;
+  }
+
+  .home__poke-img {
+    max-width: 136px;
+  }
+}

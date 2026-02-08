@@ -79,3 +79,51 @@
   padding: 0;
   white-space: nowrap;
 }
+
+@media screen and (max-width: 320px) {
+  .header {
+    max-width: 1440px;
+    font-weight: 700;
+    max-height: 56px;
+    /*top right bottom left */
+    padding: 12px 10px 12px 10px;
+  }
+
+  .header__container {
+    z-index: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .header__logo {
+    height: 15px;
+    margin-right: 3px;
+  }
+
+  .header__title {
+    font-size: 20px;
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__user-container {
+    gap: 10px;
+  }
+
+  .header__nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+
+  .header__login {
+    font-size: 14px;
+    margin: 0 3px 0 0;
+    padding: 0;
+  }
+}

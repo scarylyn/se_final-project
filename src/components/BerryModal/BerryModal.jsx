@@ -33,7 +33,7 @@ function BerryModal({ firstLetterCapital, card, onClose, isOpen }) {
         .then((effectData) => {
           setBerryInfo((prevState) => ({
             ...prevState,
-            effects: effectData.effect_entries[1].short_effect,
+            effects: effectData?.effect_entries[1].short_effect,
           }));
         })
         .catch(console.error);

@@ -52,3 +52,10 @@
   flex-grow: 0;
   background: none;
 }
+
+@media screen and (max-width: 320px) {
+  .modal__image {
+    width: 250px;
+    max-height: 506px;
+  }
+}

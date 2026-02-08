@@ -94,7 +94,6 @@ function PokeModal({ isOpen, onClose, card, firstLetterCapital }) {
 PokeModal.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  card: PropTypes.node,
   firstLetterCapital: PropTypes.func,
 };
 

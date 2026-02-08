@@ -1,10 +1,36 @@
 .page {
-  width: 1440px;
-  height: 900px;
+  max-width: 1440px;
+  max-height: 900px;
   background-color: #6e9c6d;
 }
 
 .page__content {
   margin: 0 auto;
   padding: 0 20px;
+}
+
+@media screen and (max-width: 1280px) {
+  .page {
+    max-width: 1280px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page {
+    max-width: 768px;
+  }
+
+  .page__content {
+    padding: 0 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page {
+    max-width: 320px;
+  }
+
+  .page__content {
+    padding: 0 5px;
+  }
 }

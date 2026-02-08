@@ -21,3 +21,27 @@
   color: rgb(255, 255, 255);
   padding: 3px 10px;
 }
+
+@media screen and (max-width: 1280px) {
+  .pokepage__list {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .pokepage__list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .pokepage__list {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 10px 28px 28px 28px;
+  }
+
+  .pokepage__more {
+    padding: 3px 5px;
+    font-size: 10px;
+  }
+}

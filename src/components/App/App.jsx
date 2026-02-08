@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 
 // Components
+import "../../index.css";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main.jsx";
@@ -50,8 +51,9 @@ function App() {
   const firstLetterCapital = (string) => {
     if (typeof string !== "string" || string.length === 0) {
       return "";
+    } else {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
   const handleCardClick = (card) => {
@@ -165,6 +167,7 @@ function App() {
   return (
     <LikesProvider>
       <CurrentUserContext.Provider value={userData}>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <div className="page">
           <div className="page__content">
             <Header
@@ -192,11 +195,11 @@ function App() {
                 element={
                   <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
-                      activeModal={activeModal}
                       userData={userData}
-                      openPokeModal={openPokeModal}
-                      openBerryModal={openBerryModal}
-                      openMoveModal={openMoveModal}
+                      activeModal={activeModal}
+                      card={selectedCard}
+                      onCardClick={handleCardClick}
+                      onCLose={closeActiveModal}
                       handleEditProfile={handleEditProfile}
                       openEditProfileModal={openEditProfileModal}
                       firstLetterCapital={firstLetterCapital}

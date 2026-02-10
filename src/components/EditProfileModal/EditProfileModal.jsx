@@ -1,5 +1,4 @@
-import { useState, useContext, useEffect } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 export default function EditProfileModal({
@@ -8,7 +7,7 @@ export default function EditProfileModal({
   handleEditProfile,
 }) {
   const token = localStorage.getItem("jwt");
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
 
@@ -22,7 +21,7 @@ export default function EditProfileModal({
       setName(currentUser.name || "");
       setAvatar(currentUser.avatar || "");
     }
-  }, [currentUser, isOpen]);
+  }, [isOpen]);
 
   return (
     <ModalWithForm

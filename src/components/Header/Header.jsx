@@ -1,18 +1,12 @@
 import "./Header.css";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
 import UserAvatar from "../UserAvatar/UserAvatar";
 import logo from "../../assets/pokeball-logo.svg";
 import ribbon from "../../assets/contestmemoryribbon2.png";
 
-function Header({
-  handleAddClick,
-  isLoggedIn,
-  openRegistrationModal,
-  openSignInModal,
-}) {
-  const currentUser = useContext(CurrentUserContext);
+function Header({ isLoggedIn, openRegistrationModal, openSignInModal }) {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
   return (
     <header className="header">
       <div className="header__container">
@@ -28,7 +22,6 @@ function Header({
         <UserAvatar
           value={currentUser}
           isLoggedIn={isLoggedIn}
-          handleAddClick={handleAddClick}
           openRegistrationModal={openRegistrationModal}
           openSignInModal={openSignInModal}
         />

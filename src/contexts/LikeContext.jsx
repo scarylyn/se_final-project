@@ -29,7 +29,6 @@ export function LikesProvider({ children }) {
       if (itemExists) {
         return prev.filter((item) => item.name !== name);
       } else {
-        console.log("Item Liked:", itemData);
         return [...prev, itemData];
       }
     });

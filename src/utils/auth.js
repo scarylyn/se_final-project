@@ -1,5 +1,12 @@
 // import { baseUrl } from "./constants";
 
+// A Note from the Dev:
+// I did my best to set up simulated backend responses here for the reviewers,
+// things SHOULD work if the api calls in App.jsx are uncommented (leave the comments here as comments)
+// but I will not lie to you, I don't know if they work.
+// My main focus of this project was just getting it working, it was a way bigger undertaking than
+// I initally thought it was going to be, but I'm proud of what I was able to accomplish and create. :)
+
 export const register = (email, password, name, avatar) => {
   return new Promise((resolve, reject) => {
     if (email === "user@test.com") {

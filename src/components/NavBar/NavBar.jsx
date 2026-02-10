@@ -12,6 +12,7 @@ function NavBar({
   onClose,
   openEditProfileModal,
   signOut,
+  userData,
 }) {
   const location = useLocation();
 
@@ -80,7 +81,11 @@ function NavBar({
               </button>
             </NavLink>
           ) : (
+            <div></div>
+          )}
+          {isLoggedIn && location.pathname === "/profile" ? (
             <button
+              userData={userData}
               isLoggedIn={isLoggedIn}
               onClose={onClose}
               isOpen={activeModal === "edit-profile"}
@@ -89,6 +94,8 @@ function NavBar({
             >
               Edit Profile
             </button>
+          ) : (
+            <div></div>
           )}
           {isLoggedIn ? (
             <button

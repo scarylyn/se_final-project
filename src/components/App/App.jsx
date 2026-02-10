@@ -33,7 +33,6 @@ function App() {
   const userExists = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    console.log("Current user:", userExists);
     if (userExists) {
       setUserData(userExists);
       setIsLoggedIn(true);
@@ -122,12 +121,12 @@ function App() {
       return;
     }
 
-    if (email && password !== userExists?.email && userExists?.password) {
+    if (email !== userExists.email && password !== userExists.password) {
       console.log("Login failed, try again");
       return;
     }
 
-    if (email && password === userExists?.email && userExists?.password) {
+    if (email === userExists.email && password === userExists.password) {
       setUserData(userExists);
       setIsLoggedIn(true);
       console.log("Welcome back,", userExists.name, "!");
@@ -160,7 +159,6 @@ function App() {
   };
 
   const openEditProfileModal = () => {
-    console.log("Opening modal...");
     setActiveModal("edit-profile");
   };
 
@@ -171,7 +169,6 @@ function App() {
     } else {
       const newInfo = { ...userExists, name: name, avatar: avatar };
       const setInfo = localStorage.setItem("user", JSON.stringify(newInfo));
-      console.log("Editing profile...", newInfo);
       closeActiveModal();
       setIsLoggedIn(true);
       setUserData(setInfo);
@@ -206,6 +203,7 @@ function App() {
         <div className="page">
           <div className="page__content">
             <Header
+              userData={userData}
               isLoggedIn={isLoggedIn}
               openRegistrationModal={openRegistrationModal}
               openSignInModal={openSignInModal}
@@ -225,6 +223,7 @@ function App() {
                 path="/"
                 element={
                   <Main
+                    userData={userData}
                     isLoggedIn={isLoggedIn}
                     firstLetterCapital={firstLetterCapital}
                     activeModal={activeModal}
@@ -259,6 +258,7 @@ function App() {
                 path="/pokemon"
                 element={
                   <PokePage
+                    isLoggedIn={isLoggedIn}
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
                     onCardClick={handleCardClick}
@@ -273,6 +273,7 @@ function App() {
                 path="/moves"
                 element={
                   <MovePage
+                    isLoggedIn={isLoggedIn}
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
                     onCardClick={handleCardClick}
@@ -287,6 +288,7 @@ function App() {
                 path="/berries"
                 element={
                   <BerryPage
+                    isLoggedIn={isLoggedIn}
                     firstLetterCapital={firstLetterCapital}
                     userData={userData}
                     onCardClick={handleCardClick}
@@ -307,12 +309,14 @@ function App() {
             isOpen={activeModal === "register"}
           />
           <LoginModal
+            userData={userData}
             activeModal={activeModal}
             handleSignIn={handleSignIn}
             onClose={closeActiveModal}
             isOpen={activeModal === "signin"}
           />
           <EditProfileModal
+            userData={userData}
             activeModal={activeModal}
             onClose={closeActiveModal}
             isOpen={activeModal === "edit-profile"}

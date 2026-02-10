@@ -1,11 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
 import PropTypes from "prop-types";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
-import pokemon from "../../assets/ninetales.png";
 
 function UserAvatar({ isLoggedIn, openRegistrationModal, openSignInModal }) {
-  const currentUser = useContext(CurrentUserContext);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
   if (isLoggedIn && currentUser) {
     const firstLetter = currentUser.name.charAt(0).toUpperCase();

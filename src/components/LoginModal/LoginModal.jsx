@@ -34,7 +34,7 @@ const LoginModal = ({ handleSignIn, isOpen, onClose }) => {
       isDisabled={!isValid}
     >
       <label htmlFor="email" className="modal__label">
-        Email*{" "}
+        Email*
         <input
           type="email"
           name="email"
@@ -54,7 +54,7 @@ const LoginModal = ({ handleSignIn, isOpen, onClose }) => {
         )}
       </label>
       <label htmlFor="password" className="modal__label">
-        Password*{" "}
+        Password*
         <input
           type="password"
           name="password"

@@ -23,10 +23,6 @@ function Profile({
   const favorites = JSON.parse(localStorage.getItem("likes"));
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log("Favorites:", favorites);
-  }, []);
-
   return (
     <section className="home">
       <NavBar

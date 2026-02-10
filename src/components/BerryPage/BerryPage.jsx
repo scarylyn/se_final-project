@@ -9,6 +9,7 @@ import Preloader from "../Preloader/Preloader";
 import { filterColors } from "../../utils/constants";
 
 function BerryPage({
+  isLoggedIn,
   onCardClick,
   activeModal,
   card,

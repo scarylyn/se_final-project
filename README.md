@@ -1,8 +1,8 @@
-# React + Vite
+# Welcome to the ContestDex!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Have you ever played Pokemon Emerald, Sapphire, or Ruby? Do you remember the contests? Don't feel bad if you don't! Most people overlooked it in favor of the Battle Frontier, and I don't blame them.
 
-Currently, two official plugins are available:
+I, however, spent an extensive amount of time trying to become the ultimate Pokemon Coordinator!
+Over the years, I gathered a large collection of bookmarked tabs in my browser that contained all sorts of contest information. Getting high ranks in the Contests involves a lot of berry collection, a lot of moveset adjustments, and a lot a lot of PokeBlocks.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Recently I decided that myself and fellow Coordinators needed a one stop shop for all relevant Contest information, and that's where the ContestDex comes in!

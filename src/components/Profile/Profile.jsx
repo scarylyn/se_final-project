@@ -34,6 +34,7 @@ function Profile({
         signOut={signOut}
       />
       <div className="home__landing">
+        <h2 className="home__welcome">Your Favorites</h2>
         {loading ? (
           <Preloader />
         ) : (

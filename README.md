@@ -23,6 +23,9 @@ The berries page is where you can filter all berries by flavors, and just like t
 ![Profile screenshot](https://github.com/scarylyn/se_final-project/blob/stage-1-frontend-and-api/src/assets/screenshot-desktop-profile.png)
 Finally, we have your profile page. This is where you'll see all your favorited items, for easier access to the information most relevant to you in your current game.
 
+## Check it Out!
+[Here](https://scarylyn.github.io/se_final-project/) is where you can check it out yourself! (Demo video is coming, will be linked here by 2/11/26)
+
 ### My Future Plans
 My main goal for deployment was functionality, so I feel like the page lacks visual personality. I'd love to mess around with styling and give it more OOMPH.
 I'd love to add an entire section dedicated to PokeBlock recipes, I was restricted to the current options due to lack of PokeBlock inclusion in PokeAPI.

@@ -1,0 +1,12 @@
+.footer {
+  max-width: 1360px;
+  height: 50px;
+  font-family: "Poppins";
+  font-weight: 400;
+  padding-top: 20px;
+  margin: 0;
+}
+
+.footer__text {
+  padding-left: 16px;
+}

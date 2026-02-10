@@ -1,0 +1,130 @@
+.header {
+  overflow: hidden;
+  position: relative;
+  max-width: 1440px;
+  font-family: "Poppins";
+  font-weight: 700;
+  max-height: 56px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px;
+  padding-top: 16px;
+  padding-bottom: 20px;
+}
+
+.header__container {
+  z-index: 0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header__logo {
+  margin-right: 5px;
+}
+
+.header__title {
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+  color: rgb(255, 255, 255);
+}
+
+.header__ribbon {
+  transform: rotate(14.32deg);
+  position: absolute;
+  opacity: 50%;
+  top: 0;
+  right: 0;
+}
+
+.header__user-container {
+  display: flex;
+  align-items: center;
+  z-index: 0;
+  gap: 10px;
+}
+
+.header__username {
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+}
+
+.header__avatar {
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.header__nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.header__login {
+  font-family: "Poppins";
+  font-weight: 700;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0 12px 0 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    max-width: 480px;
+    font-weight: 700;
+    max-height: 56px;
+    /*top right bottom left */
+    padding: 12px 10px 12px 10px;
+  }
+
+  .header__container {
+    z-index: 0;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .header__logo {
+    height: 15px;
+    margin-right: 3px;
+  }
+
+  .header__title {
+    font-size: 20px;
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__user-container {
+    gap: 10px;
+  }
+
+  .header__nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+
+  .header__login {
+    font-size: 14px;
+    margin: 0 3px 0 0;
+    padding: 0;
+  }
+}

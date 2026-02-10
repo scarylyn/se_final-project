@@ -5,7 +5,7 @@ import "../Main/Main.css";
 import NavBar from "../NavBar/NavBar";
 import ItemCard from "../ItemCard/ItemCard";
 import Preloader from "../Preloader/Preloader";
-import FavesModal from "../ItemModal/ItemModal";
+import ItemModal from "../ItemModal/ItemModal";
 
 // trying to get the modals to appear on the page...may have to make special favorites modal
 
@@ -52,12 +52,12 @@ function Profile({
         )}
       </div>
       {card?.name && (
-        <FavesModal
+        <ItemModal
           firstLetterCapital={firstLetterCapital}
           activeModal={activeModal}
           card={card}
           onClose={onClose}
-          isOpen={activeModal === "favesmodal"}
+          isOpen={activeModal === "item-modal"}
         />
       )}
     </section>

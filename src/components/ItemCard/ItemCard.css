@@ -46,6 +46,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   border: none;
   cursor: pointer;
   margin-right: 8px;
@@ -72,12 +73,11 @@
   }
 
   .card__like-button {
-    max-height: 18px;
     max-width: 15px;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .card {
     max-width: 80px;
   }
@@ -92,7 +92,6 @@
   }
 
   .card__like-button {
-    height: 10px;
-    max-width: 7px;
+    max-width: 10px;
   }
 }

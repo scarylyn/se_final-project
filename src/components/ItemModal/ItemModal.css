@@ -54,7 +54,7 @@
   background: none;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .modal__image {
     width: 250px;
     max-height: 506px;
@@ -106,7 +106,7 @@
   background-color: rgba(110, 156, 109, 0.5);
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .pokemodal__content.modal__content {
     max-height: 500px;
     max-width: 300px;
@@ -123,6 +123,10 @@
 .movemodal__content {
   display: flex;
   flex-direction: column;
+}
+
+.movemodal__footer.modal_footer {
+  overflow: scroll;
 }
 
 .movemodal__footer {
@@ -170,7 +174,7 @@
   width: 200px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .movemodal__content.modal__content {
     max-height: 500px;
     max-width: 300px;
@@ -198,7 +202,7 @@
 }
 
 /* berrymodal styles */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .berrymodal__image.modal__image {
     width: 100px;
   }

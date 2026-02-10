@@ -103,7 +103,7 @@
   visibility: visible;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .modal__content {
     max-height: 500px;
     max-width: 300px;
